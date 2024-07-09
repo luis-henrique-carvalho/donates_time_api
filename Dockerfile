@@ -22,6 +22,6 @@ COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
-# Escutar porta 3000 e rodar o servidor
-EXPOSE 3000
-CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
+# Escutar porta 3001 e rodar o servidor
+EXPOSE 3001
+CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3001"]

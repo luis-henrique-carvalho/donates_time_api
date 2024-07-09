@@ -36,10 +36,11 @@ services:
       - DBHOST=donates-time-db
       - DBUSER=postgres
       - DBPASS=password
+      - PORT=3001
     volumes:
       - .:/donates-time-api
     ports:
-      - "3000:3000"
+      - "3001:3001"
     depends_on:
       - donates-time-db
     networks:
