@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV['DBHOST'] %>
+  username: <%= ENV['DBUSER'] %>
+  password: <%= ENV['DBPASS'] %>
+
+development:
+  <<: *default
+  database: donates_time_api_development
+
+test:
+  <<: *default
+  database: donates_time_api_test
+
+production:
+  <<: *default
+  database: donates_time_api_production
+  username: donates_time_api
+  password: <%= ENV["BOOKSICA_API_DATABASE_PASSWORD"] %>
