@@ -1,6 +1,7 @@
 class Api::V1::OngsController < ApplicationController
   before_action :set_ong, only: %i[show update destroy]
   before_action :authenticate_user!, only: %i[create update destroy]
+  before_action :authorize_ong, only: %i[update destroy]
 
   # GET /ongs
   def index
@@ -48,6 +49,13 @@ class Api::V1::OngsController < ApplicationController
   end
 
   private
+
+  def authorize_ong
+    ong = Ong.find(params[:id])
+    authorize ong, policy_class: OngPolicy
+  rescue Pundit::NotAuthorizedError
+    render json: { error: 'You are not authorized to perform this action' }, status: :forbidden
+  end
 
   def set_ong
     @ong = Ong.find(params[:id])
