@@ -2,9 +2,11 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: <%= ENV['DBHOST'] %>
-  username: <%= ENV['DBUSER'] %>
-  password: <%= ENV['DBPASS'] %>
+  timeout: 5000
+  host: <%= ENV['DBHOST'] || ENV["POSTGRES_HOST"] %>
+  port: <%= ENV['DBPORT'] || ENV["POSTGRES_PORT"] %>
+  username: <%= ENV['DBUSER'] || ENV["POSTGRES_USERNAME"] %>
+  password: <%= ENV['DBPASS'] || ENV["POSTGRES_PASSWORD"] %>
 
 development:
   <<: *default
@@ -12,7 +14,7 @@ development:
 
 test:
   <<: *default
-  database: donates_time_api_test
+  database: donates_time_test_db
 
 production:
   <<: *default
