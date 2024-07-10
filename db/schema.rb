@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_10_030612) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_10_030909) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,6 +53,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_10_030612) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "volunteers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "action_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["action_id"], name: "index_volunteers_on_action_id"
+    t.index ["user_id", "action_id"], name: "index_volunteers_on_user_id_and_action_id", unique: true
+    t.index ["user_id"], name: "index_volunteers_on_user_id"
+  end
+
   add_foreign_key "actions", "ongs"
   add_foreign_key "ongs", "users"
+  add_foreign_key "volunteers", "actions"
+  add_foreign_key "volunteers", "users"
 end
