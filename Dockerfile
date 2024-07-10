@@ -1,11 +1,14 @@
 # syntax = docker/dockerfile:1
 
-# Versão do ruby que será usada
+# Versão do Ruby que será usada
 FROM ruby:3.2.0
 
 # Instalação de dependências
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y postgresql-client
+    apt-get install --no-install-recommends -y \
+    postgresql-client \
+    graphviz \
+    && rm -rf /var/lib/apt/lists/* # Limpa o cache do apt para reduzir o tamanho da imagem
 
 # Configuração do BUNDLE_FROZEN
 RUN bundle config --global frozen 1
@@ -13,9 +16,12 @@ RUN bundle config --global frozen 1
 # Criação do diretório de trabalho
 WORKDIR /donates-time-api
 
-# Cópia dos arquivos e instalação das gems
+# Cópia do Gemfile e instalação das gems (em duas etapas para otimizar o cache)
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
+
+# Cópia do restante do código
+COPY . .
 
 # Rodar o arquivo de entrypoint para deletar o server.pid
 COPY entrypoint.sh /usr/bin/
