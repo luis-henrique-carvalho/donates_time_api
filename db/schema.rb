@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_10_030909) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_10_031548) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_10_030909) do
     t.uuid "ong_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "category", default: 0, null: false
     t.index ["ong_id"], name: "index_actions_on_ong_id"
   end
 
@@ -35,6 +36,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_10_030909) do
     t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "category", default: 0, null: false
     t.index ["user_id"], name: "index_ongs_on_user_id"
   end
 

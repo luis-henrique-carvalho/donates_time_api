@@ -3,6 +3,7 @@
 # Table name: actions
 #
 #  id             :uuid             not null, primary key
+#  category       :integer          default("education"), not null
 #  description    :text
 #  end_date       :datetime         not null
 #  max_volunteers :integer          not null

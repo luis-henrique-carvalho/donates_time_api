@@ -3,6 +3,7 @@
 # Table name: ongs
 #
 #  id          :uuid             not null, primary key
+#  category    :integer          default(0), not null
 #  city        :string           not null
 #  description :text             not null
 #  email       :string           not null
