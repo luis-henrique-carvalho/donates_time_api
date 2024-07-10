@@ -3,11 +3,13 @@ version: '3.8'
 services:
   donates-time-api:
     build:
-      context: .
+      context: ../
       dockerfile: Dockerfile.test
     ports:
       - "3001:3001"
     depends_on:
+      - donates-time-db
+    links:
       - donates-time-db
     environment:
       - RAILS_ENV=test
@@ -21,7 +23,6 @@ services:
     entrypoint: "/usr/bin/test_entrypoint"
   donates-time-db:
     image: postgres
-    container_name: donates-time-db
     environment:
       POSTGRES_DB: pos_backend_test
       POSTGRES_USER: postgres
