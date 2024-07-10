@@ -34,3 +34,11 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
+
+group :test do
+  gem 'database_cleaner-active_record', '~> 2.0'
+  gem 'pundit-matchers'
+  gem 'shoulda-matchers', '~> 4.5'
+  gem 'simplecov', '~> 0.21.2', require: false
+  gem 'simplecov_json_formatter', '~> 0.1.4', group: :test, require: false
+end

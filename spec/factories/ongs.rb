@@ -23,11 +23,13 @@
 #
 FactoryBot.define do
   factory :ong do
-    user { nil }
-    name { "MyString" }
-    city { "MyString" }
-    state { "MyString" }
-    description { "MyText" }
-    email { "MyString" }
+    name { Faker::Name.name }
+    city { Faker::Address.city }
+    state { Faker::Address.state }
+    description { Faker::Lorem.paragraph }
+    email { Faker::Internet.email }
+    category { rand(0..11) }
+
+    association :user
   end
 end
