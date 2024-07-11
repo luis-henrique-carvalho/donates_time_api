@@ -23,11 +23,12 @@
 #
 FactoryBot.define do
   factory :action do
-    title { "MyString" }
-    start_date { "2024-07-10 03:06:12" }
-    end_date { "2024-07-10 03:06:12" }
-    description { "MyText" }
-    max_volunteers { 1 }
-    ong { nil }
+    title { Faker::Name.name }
+    start_date { Time.now }
+    end_date { Time.now + 1.day }
+    description { Faker::Lorem.paragraph }
+    max_volunteers { rand(1..10) }
+
+    association :ong
   end
 end
