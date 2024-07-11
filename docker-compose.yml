@@ -10,6 +10,7 @@ services:
       POSTGRES_DB: "donates-time_api_development"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "password"
+      DEVISE_JWT_SECRET_KEY: c979ab39fe5ce829d39eb46c88555055ac5fb38e5d3ee60e1f58df88105eb211ef1c08d4f3f1458af67fd850da993ee635a11ad14932b33564775da98687ae5d
     ports:
       - "5432:5432"
     networks:
