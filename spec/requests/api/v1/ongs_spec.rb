@@ -1,7 +1,7 @@
 # spec/requests/api/v1/ongs_spec.rb
 require 'rails_helper'
 
-RSpec.describe Api::V1::OngsController, type: :request do
+RSpec.describe '/api/v1/ongs', type: :request do
   let!(:user) { create(:user) }
   let(:headers) { authenticated_header(user) }
 
