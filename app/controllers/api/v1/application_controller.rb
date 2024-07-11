@@ -6,6 +6,14 @@ class Api::V1::ApplicationController < ApplicationController
 
   private
 
+  def default_messages(entity, name: nil)
+    {
+      created: "#{entity} #{name ? "'#{name}' " : ''}created successfully",
+      updated: "#{entity} #{name ? "'#{name}' " : ''}updated successfully",
+      deleted: "#{entity} #{name ? "'#{name}' " : ''}deleted successfully"
+    }
+  end
+
   # Returns status 404 Not Found
   def record_not_found(exception)
     render json: { error: exception.message }, status: :not_found

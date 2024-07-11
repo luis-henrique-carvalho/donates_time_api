@@ -18,19 +18,22 @@ class Api::V1::OngsController < Api::V1::ApplicationController
   def create
     @ong = Ong.new(ong_params.merge(user_id: current_user.id))
     @ong.save!
-    render json: serialize_model(@ong), status: :created
+    render json: { message: default_messages('Ong', name: @ong.name)[:created], data: serialize_model(@ong) },
+           status: :created
   end
 
   # PATCH/PUT /api/v1/ongs/:id
   def update
     @ong.update!(ong_params)
-    render json: serialize_model(@ong), status: :ok
+    render json: { message: default_messages('Ong', name: @ong.name)[:updated], data: serialize_model(@ong) },
+           status: :ok
   end
 
   # DELETE /api/v1/ongs/:id
   def destroy
     @ong.destroy
-    head :no_content
+    render json: { message: default_messages('Ong', name: @ong.name)[:deleted], data: serialize_model(@ong) },
+           status: :ok
   end
 
   private

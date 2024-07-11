@@ -7,6 +7,7 @@ RSpec.describe '/api/v1/ongs', type: :request do
 
   describe 'GET /ongs' do
     let!(:ongs) { create_list(:ong, 3) }
+
     it 'returns a list of ONGs' do
       get(api_v1_ongs_path, headers:)
 
@@ -52,9 +53,13 @@ RSpec.describe '/api/v1/ongs', type: :request do
       expect(response).to have_http_status(:created)
 
       json_response = JSON.parse(response.body, symbolize_names: true)
+      expect(json_response).to have_key(:message)
+      expect(json_response[:message]).to eq("Ong '#{valid_params[:ong][:name]}' created successfully")
+
       expect(json_response).to have_key(:data)
-      expect_ong_attributes(json_response[:data])
-      expect(json_response[:data][:attributes][:name]).to eq('New ONG')
+      expect(json_response[:data]).to have_key(:data)
+      expect_ong_attributes(json_response[:data][:data])
+      expect(json_response[:data][:data][:attributes][:name]).to eq('New ONG')
     end
   end
 
@@ -73,17 +78,31 @@ RSpec.describe '/api/v1/ongs', type: :request do
       expect(response).to have_http_status(:ok)
 
       json_response = JSON.parse(response.body, symbolize_names: true)
+      expect(json_response).to have_key(:message)
+      expect(json_response[:message]).to eq("Ong '#{update_params[:ong][:name]}' updated successfully")
+
       expect(json_response).to have_key(:data)
-      expect_ong_attributes(json_response[:data])
-      expect(json_response[:data][:attributes][:name]).to eq('Updated ONG')
+      expect(json_response[:data]).to have_key(:data)
+      expect_ong_attributes(json_response[:data][:data])
+      expect(json_response[:data][:data][:attributes][:name]).to eq('Updated ONG')
     end
   end
 
   describe 'DELETE /ongs/:id' do
     let!(:ong) { create(:ong, user:) }
+
     it 'deletes the ONG' do
       delete(api_v1_ong_path(ong), headers:)
-      expect(response).to have_http_status(:no_content)
+      expect(response).to have_http_status(:ok)
+
+      json_response = JSON.parse(response.body, symbolize_names: true)
+      expect(json_response).to have_key(:message)
+      expect(json_response[:message]).to eq("Ong '#{ong.name}' deleted successfully")
+
+      expect(json_response).to have_key(:data)
+      expect(json_response[:data]).to have_key(:data)
+      expect_ong_attributes(json_response[:data][:data])
+
       expect(Ong.find_by(id: ong.id)).to be_nil
     end
   end
