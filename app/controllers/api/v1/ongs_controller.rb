@@ -1,7 +1,7 @@
 class Api::V1::OngsController < Api::V1::ApplicationController
   before_action :set_ong, only: %i[show update destroy]
   before_action :authenticate_user!, only: %i[create update destroy]
-  before_action :authorize_ong, only: %i[update destroy]
+  before_action :authorize_ong
 
   # GET /api/v1/ongs
   def index

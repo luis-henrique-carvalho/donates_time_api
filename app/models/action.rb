@@ -23,6 +23,7 @@
 #
 class Action < ApplicationRecord
   belongs_to :ong
+  has_many :volunteers, dependent: :destroy
 
   enum category: {
     education: 0,

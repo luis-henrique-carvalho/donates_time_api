@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :ongs, only: %i[index show create update destroy]
       resources :actions, only: %i[index show create update destroy]
+      resources :volunteers, only: %i[show create destroy]
     end
   end
 end

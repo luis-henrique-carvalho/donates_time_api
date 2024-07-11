@@ -1,7 +1,7 @@
 class Api::V1::ActionsController < Api::V1::ApplicationController
   before_action :set_action, only: %i[show update destroy]
   before_action :authenticate_user!, only: %i[create update destroy]
-  before_action :authorize_action, only: %i[update destroy]
+  before_action :authorize_action
 
   # GET /api/v1/actions
   def index

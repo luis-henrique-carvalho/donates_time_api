@@ -21,7 +21,7 @@
 #
 FactoryBot.define do
   factory :volunteer do
-    user { nil }
-    action { nil }
+    association :user
+    association :action
   end
 end
