@@ -1,8 +1,8 @@
 class Api::V1::ApplicationController < ApplicationController
+  rescue_from StandardError, with: :handle_standard_error
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-  rescue_from StandardError, with: :handle_standard_error
 
   private
 
@@ -16,13 +16,13 @@ class Api::V1::ApplicationController < ApplicationController
     render json: { errors: exception.record.errors.full_messages }, status: :unprocessable_entity
   end
 
+  # Returns status 403 Forbidden
+  def user_not_authorized(_exception)
+    render json: { error: 'You are not authorized to perform this action' }, status: :forbidden
+  end
+
   # Returns status 500 Internal Server Error
   def handle_standard_error(exception)
     render json: { error: exception.message }, status: :internal_server_error
-  end
-
-  # Returns status 403 Forbidden
-  def user_not_authorized
-    render json: { error: 'You are not authorized to perform this action' }, status: :forbidden
   end
 end
