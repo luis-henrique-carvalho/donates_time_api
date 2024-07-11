@@ -3,6 +3,7 @@ require 'rails_helper'
 
 RSpec.describe '/api/v1/actions', type: :request do
   let!(:user) { create(:user) }
+  let!(:ong) { create(:ong, user:) }
   let(:headers) { authenticated_header(user) }
 
   describe 'GET /actions' do
@@ -42,7 +43,7 @@ RSpec.describe '/api/v1/actions', type: :request do
         max_volunteers: 5,
         category: 1,
         description: 'New Description',
-        ong_id: create(:ong).id
+        ong_id: ong.id
       }
     end
 
@@ -58,7 +59,7 @@ RSpec.describe '/api/v1/actions', type: :request do
   end
 
   describe 'PATCH /actions/:id' do
-    let!(:action) { create(:action) }
+    let!(:action) { create(:action, ong:) }
     let(:update_params) do
       {
         title: 'Updated action'
@@ -77,7 +78,7 @@ RSpec.describe '/api/v1/actions', type: :request do
   end
 
   describe 'DELETE /actions/:id' do
-    let!(:action) { create(:action) }
+    let!(:action) { create(:action, ong:) }
     it 'deletes the action' do
       delete(api_v1_action_path(action), headers:)
       expect(response).to have_http_status(:no_content)

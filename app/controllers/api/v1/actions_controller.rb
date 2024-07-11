@@ -1,7 +1,7 @@
 class Api::V1::ActionsController < Api::V1::ApplicationController
   before_action :set_action, only: %i[show update destroy]
-  # before_action :authenticate_user!, only: %i[create update destroy]
-  # before_action :authorize_action, only: %i[update destroy]
+  before_action :authenticate_user!, only: %i[create update destroy]
+  before_action :authorize_action, only: %i[update destroy]
 
   # GET /api/v1/actions
   def index
@@ -39,9 +39,9 @@ class Api::V1::ActionsController < Api::V1::ApplicationController
     @action = Action.find(params[:id])
   end
 
-  # def authorize_action
-  #   authorize @action, policy_class: ActionPolicy
-  # end
+  def authorize_action
+    authorize @action, policy_class: ActionPolicy
+  end
 
   def action_params
     params.permit(:title, :description, :start_date, :end_date, :max_volunteers, :category,
