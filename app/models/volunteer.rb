@@ -24,6 +24,12 @@ class Volunteer < ApplicationRecord
   belongs_to :user
   belongs_to :action
 
+  has_one :ong, through: :action
+
   validates :user_id, :action_id, presence: true
   validates :user_id, uniqueness: { scope: :action_id }
+
+  def confirm_presence
+    update(confirmed: true)
+  end
 end

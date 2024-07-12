@@ -12,7 +12,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :ongs, only: %i[index show create update destroy] do
         resources :actions, only: %i[index], controller: 'ongs/actions'
-        resources :volunteers, only: %i[index], controller: 'ongs/volunteers'
+        resources :volunteers, only: %i[index], controller: 'ongs/volunteers' do
+          put :confirm_presence, on: :member
+        end
       end
 
       resources :actions, only: %i[index show create update destroy] do

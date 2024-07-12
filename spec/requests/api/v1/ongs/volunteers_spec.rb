@@ -28,6 +28,23 @@ RSpec.describe '/api/v1/ongs/:ong_id/volunteers', type: :request do
     end
   end
 
+  describe 'PUT /api/v1/ongs/:ong_id/volunteers/:id/confirm_presence' do
+    let(:volunteer) { ong.volunteers.first }
+
+    it 'confirms the presence of a volunteer' do
+      put(confirm_presence_api_v1_ong_volunteer_path(ong, volunteer), headers:)
+
+      debugger
+      expect(response).to have_http_status(:ok)
+      expect(json_response).to have_key(:message)
+      expect(json_response[:message]).to eq('Presence confirmed successfully')
+
+      expect(json_response).to have_key(:data)
+      expect(json_response[:data][:attributes][:confirmed]).to eq(true)
+      expect_volunteer_attributes(json_response[:data])
+    end
+  end
+
   private
 
   def expect_volunteer_attributes(volunteer)
@@ -38,6 +55,7 @@ RSpec.describe '/api/v1/ongs/:ong_id/volunteers', type: :request do
     expect(volunteer).to have_key(:attributes)
     attributes = volunteer[:attributes]
     expect(attributes).to have_key(:id)
+    expect(attributes).to have_key(:confirmed)
     expect(attributes).to have_key(:user_id)
     expect(attributes).to have_key(:action_id)
     expect(attributes).to have_key(:created_at)

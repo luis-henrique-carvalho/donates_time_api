@@ -60,6 +60,7 @@ RSpec.describe '/api/v1/volunteers', type: :request do
     expect(volunteer).to have_key(:attributes)
     attributes = volunteer[:attributes]
     expect(attributes).to have_key(:id)
+    expect(attributes).to have_key(:confirmed)
     expect(attributes).to have_key(:user_id)
     expect(attributes).to have_key(:action_id)
     expect(attributes).to have_key(:created_at)
