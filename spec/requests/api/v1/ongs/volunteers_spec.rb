@@ -34,7 +34,6 @@ RSpec.describe '/api/v1/ongs/:ong_id/volunteers', type: :request do
     it 'confirms the presence of a volunteer' do
       put(confirm_presence_api_v1_ong_volunteer_path(ong, volunteer), headers:)
 
-      debugger
       expect(response).to have_http_status(:ok)
       expect(json_response).to have_key(:message)
       expect(json_response[:message]).to eq('Presence confirmed successfully')
