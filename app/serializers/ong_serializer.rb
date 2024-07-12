@@ -22,6 +22,6 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class OngSerializer
-  include JSONAPI::Serializer
+  include FastJsonapi::ObjectSerializer
   attributes :id, :category, :city, :description, :email, :name, :state, :user_id, :created_at, :updated_at
 end

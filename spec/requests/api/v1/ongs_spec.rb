@@ -54,12 +54,11 @@ RSpec.describe '/api/v1/ongs', type: :request do
 
       json_response = JSON.parse(response.body, symbolize_names: true)
       expect(json_response).to have_key(:message)
-      expect(json_response[:message]).to eq("Ong '#{valid_params[:ong][:name]}' created successfully")
+      expect(json_response[:message]).to eq("Ong 'New ONG' created successfully")
 
       expect(json_response).to have_key(:data)
-      expect(json_response[:data]).to have_key(:data)
-      expect_ong_attributes(json_response[:data][:data])
-      expect(json_response[:data][:data][:attributes][:name]).to eq('New ONG')
+      expect_ong_attributes(json_response[:data])
+      expect(json_response[:data][:attributes][:name]).to eq('New ONG')
     end
   end
 
@@ -79,12 +78,11 @@ RSpec.describe '/api/v1/ongs', type: :request do
 
       json_response = JSON.parse(response.body, symbolize_names: true)
       expect(json_response).to have_key(:message)
-      expect(json_response[:message]).to eq("Ong '#{update_params[:ong][:name]}' updated successfully")
+      expect(json_response[:message]).to eq("Ong 'Updated ONG' updated successfully")
 
       expect(json_response).to have_key(:data)
-      expect(json_response[:data]).to have_key(:data)
-      expect_ong_attributes(json_response[:data][:data])
-      expect(json_response[:data][:data][:attributes][:name]).to eq('Updated ONG')
+      expect_ong_attributes(json_response[:data])
+      expect(json_response[:data][:attributes][:name]).to eq('Updated ONG')
     end
   end
 
@@ -100,8 +98,7 @@ RSpec.describe '/api/v1/ongs', type: :request do
       expect(json_response[:message]).to eq("Ong '#{ong.name}' deleted successfully")
 
       expect(json_response).to have_key(:data)
-      expect(json_response[:data]).to have_key(:data)
-      expect_ong_attributes(json_response[:data][:data])
+      expect_ong_attributes(json_response[:data])
 
       expect(Ong.find_by(id: ong.id)).to be_nil
     end

@@ -6,12 +6,12 @@ class Api::V1::OngsController < Api::V1::ApplicationController
   # GET /api/v1/ongs
   def index
     @ongs = Ong.all
-    render json: serialize_models(@ongs), status: :ok
+    render json: { data: serialize_models(@ongs) }, status: :ok
   end
 
   # GET /api/v1/ongs/:id
   def show
-    render json: serialize_model(@ong), status: :ok
+    render json: { data: serialize_model(@ong) }, status: :ok
   end
 
   # POST /api/v1/ongs
@@ -51,10 +51,10 @@ class Api::V1::OngsController < Api::V1::ApplicationController
   end
 
   def serialize_model(model)
-    OngSerializer.new(model).serializable_hash
+    OngSerializer.new(model).serializable_hash[:data]
   end
 
   def serialize_models(models)
-    OngSerializer.new(models, is_collection: true).serializable_hash
+    OngSerializer.new(models, is_collection: true).serializable_hash[:data]
   end
 end
