@@ -15,7 +15,9 @@ Rails.application.routes.draw do
         resources :volunteers, only: %i[index], controller: 'ongs/volunteers'
       end
 
-      resources :actions, only: %i[index show create update destroy]
+      resources :actions, only: %i[index show create update destroy] do
+        resources :volunteers, only: %i[index], controller: 'actions/volunteers'
+      end
       resources :volunteers, only: %i[show create destroy]
     end
   end
