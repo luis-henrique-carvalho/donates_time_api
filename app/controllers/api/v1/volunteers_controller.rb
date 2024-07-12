@@ -5,20 +5,22 @@ class Api::V1::VolunteersController < Api::V1::ApplicationController
 
   # GET /api/v1/volunteers/:id
   def show
-    render json: serialize_model(@volunteer), status: :ok
+    render json: { data: serialize_model(@volunteer) }, status: :ok
   end
 
   # POST /api/v1/volunteers
   def create
     @volunteer = Volunteer.new(volunteer_params.merge(user_id: current_user.id))
     @volunteer.save!
-    render json: serialize_model(@volunteer), status: :created
+    render json: { message: default_messages('Volunteer')[:created], data: serialize_model(@volunteer) },
+           status: :ok
   end
 
   # DELETE /api/v1/volunteers/:id
   def destroy
     @volunteer.destroy
-    head :no_content
+    render json: { message: default_messages('Volunteer')[:deleted], data: serialize_model(@volunteer) },
+           status: :ok
   end
 
   private
@@ -36,6 +38,6 @@ class Api::V1::VolunteersController < Api::V1::ApplicationController
   end
 
   def serialize_model(model)
-    VolunteerSerializer.new(model).serializable_hash
+    VolunteerSerializer.new(model).serializable_hash[:data]
   end
 end
