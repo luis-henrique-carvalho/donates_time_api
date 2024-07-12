@@ -49,12 +49,4 @@ class Api::V1::OngsController < Api::V1::ApplicationController
   def ong_params
     params.require(:ong).permit(:name, :city, :state, :description, :email, :category)
   end
-
-  def serialize_model(model)
-    OngSerializer.new(model).serializable_hash[:data]
-  end
-
-  def serialize_models(models)
-    OngSerializer.new(models, is_collection: true).serializable_hash[:data]
-  end
 end

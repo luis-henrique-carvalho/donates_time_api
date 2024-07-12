@@ -36,8 +36,4 @@ class Api::V1::VolunteersController < Api::V1::ApplicationController
   def volunteer_params
     params.require(:volunteer).permit(:action_id)
   end
-
-  def serialize_model(model)
-    VolunteerSerializer.new(model).serializable_hash[:data]
-  end
 end

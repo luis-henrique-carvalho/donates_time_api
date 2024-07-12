@@ -50,12 +50,4 @@ class Api::V1::ActionsController < Api::V1::ApplicationController
     params.permit(:title, :description, :start_date, :end_date, :max_volunteers, :category,
                   :ong_id)
   end
-
-  def serialize_model(model)
-    ActionSerializer.new(model).serializable_hash[:data]
-  end
-
-  def serialize_models(models)
-    ActionSerializer.new(models, is_collection: true).serializable_hash[:data]
-  end
 end
