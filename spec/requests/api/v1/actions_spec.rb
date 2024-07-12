@@ -3,13 +3,16 @@ require 'rails_helper'
 
 RSpec.describe '/api/v1/actions', type: :request do
   let!(:user) { create(:user) }
-  let!(:ong) { create(:ong, user:) }
+  let!(:ong) { create(:ong, user:) } # Corrigido para associar corretamente o usuário à ONG
   let(:headers) { authenticated_header(user) }
 
   describe 'GET /actions' do
-    let!(:actions) { create_list(:action, 3) }
+    let!(:actions) { create_list(:action, 3, ong:) }
+
     it 'returns a list of actions' do
       get(api_v1_actions_path, headers:)
+
+      expect(response).to have_http_status(:ok)
 
       json_response = JSON.parse(response.body, symbolize_names: true)
       expect(json_response).to have_key(:data)
@@ -22,7 +25,7 @@ RSpec.describe '/api/v1/actions', type: :request do
   end
 
   describe 'GET /actions/:id' do
-    let!(:action) { create(:action) }
+    let!(:action) { create(:action, ong:) }
 
     it 'returns the action' do
       get(api_v1_action_path(action), headers:)
@@ -52,6 +55,9 @@ RSpec.describe '/api/v1/actions', type: :request do
       expect(response).to have_http_status(:created)
 
       json_response = JSON.parse(response.body, symbolize_names: true)
+      expect(json_response).to have_key(:message)
+      expect(json_response[:message]).to eq("Action #{valid_params[:title]} created successfully")
+
       expect(json_response).to have_key(:data)
       expect_action_attributes(json_response[:data])
       expect(json_response[:data][:attributes][:title]).to eq('New action')
@@ -71,17 +77,29 @@ RSpec.describe '/api/v1/actions', type: :request do
       expect(response).to have_http_status(:ok)
 
       json_response = JSON.parse(response.body, symbolize_names: true)
+      expect(json_response).to have_key(:message)
+      expect(json_response[:message]).to eq("Action #{update_params[:title]} updated successfully")
+
       expect(json_response).to have_key(:data)
       expect_action_attributes(json_response[:data])
-      expect(json_response[:data][:attributes][:title]).to eq('Updated action')
+      expect(json_response[:data][:attributes][:title]).to eq("#{update_params[:title]}")
     end
   end
 
   describe 'DELETE /actions/:id' do
     let!(:action) { create(:action, ong:) }
+
     it 'deletes the action' do
       delete(api_v1_action_path(action), headers:)
-      expect(response).to have_http_status(:no_content)
+      expect(response).to have_http_status(:ok)
+
+      json_response = JSON.parse(response.body, symbolize_names: true)
+      expect(json_response).to have_key(:message)
+      expect(json_response[:message]).to eq("Action #{action.title} deleted successfully")
+
+      expect(json_response).to have_key(:data)
+      expect_action_attributes(json_response[:data])
+
       expect(Action.find_by(id: action.id)).to be_nil
     end
   end

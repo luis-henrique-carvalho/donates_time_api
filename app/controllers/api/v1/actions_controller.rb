@@ -6,31 +6,34 @@ class Api::V1::ActionsController < Api::V1::ApplicationController
   # GET /api/v1/actions
   def index
     @actions = Action.all
-    render json: serialize_models(@actions), status: :ok
+    render json: { data: serialize_models(@actions) }, status: :ok
   end
 
   # GET /api/v1/actions/:id
   def show
-    render json: serialize_model(@action), status: :ok
+    render json: { data: serialize_model(@action) }, status: :ok
   end
 
   # POST /api/v1/actions
   def create
     @action = Action.new(action_params)
     @action.save!
-    render json: serialize_model(@action), status: :created
+    render json: { message: default_messages('Action', name: @action.title)[:created], data: serialize_model(@action) },
+           status: :created
   end
 
   # PATCH/PUT /api/v1/actions/:id
   def update
     @action.update!(action_params)
-    render json: serialize_model(@action), status: :ok
+    render json: { message: default_messages('Action', name: @action.title)[:updated], data: serialize_model(@action) },
+           status: :ok
   end
 
   # DELETE /api/v1/actions/:id
   def destroy
     @action.destroy
-    head :no_content
+    render json: { message: default_messages('Action', name: @action.title)[:deleted], data: serialize_model(@action) },
+           status: :ok
   end
 
   private
@@ -49,10 +52,10 @@ class Api::V1::ActionsController < Api::V1::ApplicationController
   end
 
   def serialize_model(model)
-    ActionSerializer.new(model).serializable_hash
+    ActionSerializer.new(model).serializable_hash[:data]
   end
 
   def serialize_models(models)
-    ActionSerializer.new(models, is_collection: true).serializable_hash
+    ActionSerializer.new(models, is_collection: true).serializable_hash[:data]
   end
 end

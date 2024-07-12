@@ -8,9 +8,9 @@ class Api::V1::ApplicationController < ApplicationController
 
   def default_messages(entity, name: nil)
     {
-      created: "#{entity} #{name ? "'#{name}' " : ''}created successfully",
-      updated: "#{entity} #{name ? "'#{name}' " : ''}updated successfully",
-      deleted: "#{entity} #{name ? "'#{name}' " : ''}deleted successfully"
+      created: "#{entity} #{name ? "#{name} " : ''}created successfully",
+      updated: "#{entity} #{name ? "#{name} " : ''}updated successfully",
+      deleted: "#{entity} #{name ? "#{name} " : ''}deleted successfully"
     }
   end
 
