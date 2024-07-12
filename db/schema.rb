@@ -60,7 +60,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_033806) do
     t.uuid "action_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "confirmed"
+    t.boolean "confirmed", default: false
     t.index ["action_id"], name: "index_volunteers_on_action_id"
     t.index ["user_id", "action_id"], name: "index_volunteers_on_user_id_and_action_id", unique: true
     t.index ["user_id"], name: "index_volunteers_on_user_id"
