@@ -3,6 +3,7 @@
 # Table name: volunteers
 #
 #  id         :uuid             not null, primary key
+#  confirmed  :boolean
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  action_id  :uuid             not null
