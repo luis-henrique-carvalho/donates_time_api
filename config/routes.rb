@@ -10,7 +10,11 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :ongs, only: %i[index show create update destroy]
+      resources :ongs, only: %i[index show create update destroy] do
+        resources :actions, only: %i[index], controller: 'ongs/actions'
+        resources :volunteers, only: %i[index], controller: 'ongs/volunteers'
+      end
+
       resources :actions, only: %i[index show create update destroy]
       resources :volunteers, only: %i[show create destroy]
     end

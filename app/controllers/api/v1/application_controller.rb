@@ -37,11 +37,15 @@ class Api::V1::ApplicationController < ApplicationController
   protected
 
   def serialize_model(model)
+    return {} unless model.present?
+
     serializer_class = "#{model.class}Serializer".constantize
     serializer_class.new(model).serializable_hash[:data]
   end
 
   def serialize_models(models)
+    return [] unless models.present?
+
     serializer_class = "#{models.first.class}Serializer".constantize
     serializer_class.new(models, is_collection: true).serializable_hash[:data]
   end

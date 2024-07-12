@@ -23,7 +23,9 @@
 #
 class Ong < ApplicationRecord
   belongs_to :user
+
   has_many :actions, dependent: :destroy
+  has_many :volunteers, through: :actions
 
   enum category: {
     education: 0,
