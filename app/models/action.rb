@@ -8,6 +8,7 @@
 #  end_date       :datetime         not null
 #  max_volunteers :integer          not null
 #  start_date     :datetime         not null
+#  status         :integer          default(0), not null
 #  title          :string           not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
@@ -38,6 +39,13 @@ class Action < ApplicationRecord
     sports: 9,
     youth: 10,
     seniors: 11
+  }
+
+  enum status: {
+    pending: 0,
+    active: 1,
+    completed: 2,
+    cancelled: 3
   }
 
   validates :title, :start_date, :end_date, :max_volunteers, :category, presence: true

@@ -8,6 +8,7 @@
 #  end_date       :datetime         not null
 #  max_volunteers :integer          not null
 #  start_date     :datetime         not null
+#  status         :integer          default(0), not null
 #  title          :string           not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
