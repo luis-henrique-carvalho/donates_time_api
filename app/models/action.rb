@@ -45,7 +45,7 @@ class Action < ApplicationRecord
     pending: 0,
     active: 1,
     completed: 2,
-    cancelled: 3
+    canceled: 3
   }
 
   validates :title, :start_date, :end_date, :max_volunteers, :category, presence: true
