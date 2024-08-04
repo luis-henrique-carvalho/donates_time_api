@@ -25,4 +25,6 @@ class ActionSerializer
   include JSONAPI::Serializer
   attributes :id, :title, :description, :start_date, :end_date,
              :max_volunteers, :category, :created_at, :updated_at, :ong_id
+
+  belongs_to :ong
 end

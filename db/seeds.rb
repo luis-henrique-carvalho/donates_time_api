@@ -7,3 +7,16 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+# Create User
+user = FactoryBot.create(:user)
+
+# Create Ong
+ong = FactoryBot.create(:ong, user:)
+
+# Create Action
+500.times do
+  action = FactoryBot.create(:action, ong:)
+
+  FactoryBot.create(:volunteer, user:, action:)
+end

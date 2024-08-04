@@ -1,4 +1,5 @@
 class Api::V1::ApplicationController < ApplicationController
+  include Pagy::Backend
   rescue_from StandardError, with: :handle_standard_error
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found

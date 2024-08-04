@@ -1,12 +1,14 @@
 class Api::V1::ActionsController < Api::V1::ApplicationController
   before_action :set_action, only: %i[show update destroy]
+  before_action :set_serch, only: %i[index]
   before_action :authenticate_user!, only: %i[create update destroy]
   before_action :authorize_action
 
   # GET /api/v1/actions
   def index
-    @actions = Action.all
-    render json: { data: serialize_models(@actions) }, status: :ok
+    @actions = @search.result
+    @pagy, @actions = pagy(@actions, items: 10)
+    render json: { data: serialize_models(@actions), pagy: pagy_metadata(@pagy) }, status: :ok
   end
 
   # GET /api/v1/actions/:id
@@ -49,5 +51,9 @@ class Api::V1::ActionsController < Api::V1::ApplicationController
   def action_params
     params.permit(:title, :description, :start_date, :end_date, :max_volunteers, :category,
                   :ong_id)
+  end
+
+  def set_serch
+    @search = Action.ransack(params[:q])
   end
 end
