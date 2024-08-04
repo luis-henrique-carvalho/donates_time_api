@@ -14,6 +14,7 @@ gem 'pundit'
 gem 'rack-cors'
 gem 'rails', '~> 7.1.3', '>= 7.1.3.4'
 gem 'ransack'
+gem 'solid_queue'
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
 # gem "jbuilder"

@@ -8,7 +8,7 @@
 #  end_date       :datetime         not null
 #  max_volunteers :integer          not null
 #  start_date     :datetime         not null
-#  status         :integer          default(0), not null
+#  status         :integer          default("pending"), not null
 #  title          :string           not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
@@ -25,8 +25,8 @@
 FactoryBot.define do
   factory :action do
     title { Faker::Name.name }
-    start_date { Time.now }
-    end_date { Time.now + 1.day }
+    start_date { Time.now - 2.day }
+    end_date { Time.now - 1.day }
     description { Faker::Lorem.paragraph }
     max_volunteers { rand(1..10) }
 
