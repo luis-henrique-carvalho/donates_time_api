@@ -7,7 +7,7 @@ class Api::V1::ActionsController < Api::V1::ApplicationController
   # GET /api/v1/actions
   def index
     @actions = @search.result
-    @pagy, @actions = pagy(@actions, items: 10)
+    @pagy, @actions = pagy(@actions, items: 12)
     render json: { data: serialize_models(@actions), pagy: pagy_metadata(@pagy) }, status: :ok
   end
 

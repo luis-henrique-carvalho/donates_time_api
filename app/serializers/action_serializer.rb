@@ -27,5 +27,15 @@ class ActionSerializer
   attributes :id, :title, :description, :start_date, :end_date, :status,
              :max_volunteers, :category, :created_at, :updated_at, :ong_id
 
+
+  attribute :ong do |object|
+    {
+      name: object.ong.name,
+    }
+  end
+
+  attribute :volunteers_count do |object|
+    object.volunteers.count
+  end
   belongs_to :ong
 end

@@ -9,7 +9,7 @@
 #   end
 
 # Create User
-user = FactoryBot.create(:user)
+user = FactoryBot.create(:user, email: "admin@admin.com")
 
 # Create Ong
 ong = FactoryBot.create(:ong, user:)
