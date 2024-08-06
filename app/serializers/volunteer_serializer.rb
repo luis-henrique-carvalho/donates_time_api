@@ -21,24 +21,20 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class VolunteerSerializer < ApplicationSerializer
-  include JSONAPI::Serializer
+  identifier :id
 
-  attributes :id, :confirmed, :user_id, :action_id, :created_at, :updated_at
+  fields :id, :confirmed, :user_id, :action_id, :created_at, :updated_at
 
-  attribute :user do |object|
-    {
-      name: object.user.name,
-      email: object.user.email
-    }
+  view :with_user do
+    association :user, blueprint: UserSerializer
   end
 
-  attribute :action do |object|
-    {
-      title: object.action.title,
-      status: object.action.status,
-      category: object.action.category,
-      start_date: object.action.start_date,
-      end_date: object.action.end_date
-    }
+  view :with_action do
+    association :action, blueprint: ActionSerializer
+  end
+
+  view :with_user_and_action do
+    association :user, blueprint: UserSerializer
+    association :action, blueprint: ActionSerializer
   end
 end
