@@ -14,7 +14,7 @@ class Api::V1::ActionsController < Api::V1::ApplicationController
 
   # GET /api/v1/actions/:id
   def show
-    render json: { data: ActionSerializer.render_as_json(@action) }, status: :ok
+    render json: { data: ActionSerializer.render_as_json(@action, view: :with_volunteers) }, status: :ok
   end
 
   # POST /api/v1/actions
@@ -44,7 +44,7 @@ class Api::V1::ActionsController < Api::V1::ApplicationController
   private
 
   def set_action
-    @action = Action.find(params[:id])
+    @action = Action.includes(:ong, volunteers: :user).find(params[:id])
   end
 
   def authorize_action
