@@ -5,7 +5,7 @@ class Api::V1::Actions::VolunteersController < Api::V1::ApplicationController
   def index
     @volunteers = @action.volunteers
 
-    render json: { data: serialize_models(@volunteers) }, status: :ok
+    render json: { data: VolunteerSerializer.render_as_json(@volunteers, view: :default) }, status: :ok
   end
 
   private

@@ -28,15 +28,9 @@ RSpec.describe '/api/v1/actions/:action_id/volunteers', type: :request do
 
   def expect_volunteer_attributes(volunteer)
     expect(volunteer).to have_key(:id)
-    expect(volunteer).to have_key(:type)
-    expect(volunteer[:type]).to eq('volunteer')
-
-    expect(volunteer).to have_key(:attributes)
-    attributes = volunteer[:attributes]
-    expect(attributes).to have_key(:id)
-    expect(attributes).to have_key(:user_id)
-    expect(attributes).to have_key(:action_id)
-    expect(attributes).to have_key(:created_at)
-    expect(attributes).to have_key(:updated_at)
+    expect(volunteer).to have_key(:user_id)
+    expect(volunteer).to have_key(:action_id)
+    expect(volunteer).to have_key(:created_at)
+    expect(volunteer).to have_key(:updated_at)
   end
 end
