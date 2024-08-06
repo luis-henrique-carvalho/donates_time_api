@@ -2,7 +2,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
   before_action :set_user, only: [:show]
 
   def show
-    render json: UserSerializer.render(@user), status: :ok
+    render json: UserSerializer.render(@user, view: :with_ong), status: :ok
   end
 
   private

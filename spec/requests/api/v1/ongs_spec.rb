@@ -12,10 +12,9 @@ RSpec.describe '/api/v1/ongs', type: :request do
       get(api_v1_ongs_path, headers:)
 
       json_response = JSON.parse(response.body, symbolize_names: true)
-      expect(json_response).to have_key(:data)
-      expect(json_response[:data].size).to eq(3)
+      expect(json_response.size).to eq(3)
 
-      json_response[:data].each do |ong|
+      json_response.each do |ong|
         expect_ong_attributes(ong)
       end
     end
@@ -29,8 +28,8 @@ RSpec.describe '/api/v1/ongs', type: :request do
       expect(response).to have_http_status(:ok)
 
       json_response = JSON.parse(response.body, symbolize_names: true)
-      expect(json_response).to have_key(:data)
-      expect_ong_attributes(json_response[:data])
+
+      expect_ong_attributes(json_response)
     end
   end
 
@@ -56,9 +55,8 @@ RSpec.describe '/api/v1/ongs', type: :request do
       expect(json_response).to have_key(:message)
       expect(json_response[:message]).to eq("Ong #{valid_params[:ong][:name]} created successfully")
 
-      expect(json_response).to have_key(:data)
       expect_ong_attributes(json_response[:data])
-      expect(json_response[:data][:attributes][:name]).to eq('New ONG')
+      expect(json_response[:data][:name]).to eq('New ONG')
     end
   end
 
@@ -80,9 +78,8 @@ RSpec.describe '/api/v1/ongs', type: :request do
       expect(json_response).to have_key(:message)
       expect(json_response[:message]).to eq("Ong #{update_params[:ong][:name]} updated successfully")
 
-      expect(json_response).to have_key(:data)
       expect_ong_attributes(json_response[:data])
-      expect(json_response[:data][:attributes][:name]).to eq('Updated ONG')
+      expect(json_response[:data][:name]).to eq('Updated ONG')
     end
   end
 
@@ -97,7 +94,6 @@ RSpec.describe '/api/v1/ongs', type: :request do
       expect(json_response).to have_key(:message)
       expect(json_response[:message]).to eq("Ong #{ong.name} deleted successfully")
 
-      expect(json_response).to have_key(:data)
       expect_ong_attributes(json_response[:data])
 
       expect(Ong.find_by(id: ong.id)).to be_nil
@@ -108,20 +104,15 @@ RSpec.describe '/api/v1/ongs', type: :request do
 
   def expect_ong_attributes(ong)
     expect(ong).to have_key(:id)
-    expect(ong).to have_key(:type)
-    expect(ong[:type]).to eq('ong')
-
-    expect(ong).to have_key(:attributes)
-    attributes = ong[:attributes]
-    expect(attributes).to have_key(:id)
-    expect(attributes).to have_key(:category)
-    expect(attributes).to have_key(:city)
-    expect(attributes).to have_key(:description)
-    expect(attributes).to have_key(:email)
-    expect(attributes).to have_key(:name)
-    expect(attributes).to have_key(:state)
-    expect(attributes).to have_key(:user_id)
-    expect(attributes).to have_key(:created_at)
-    expect(attributes).to have_key(:updated_at)
+    expect(ong).to have_key(:category)
+    expect(ong).to have_key(:city)
+    expect(ong).to have_key(:description)
+    expect(ong).to have_key(:email)
+    expect(ong).to have_key(:name)
+    expect(ong).to have_key(:state)
+    expect(ong).to have_key(:user_id)
+    expect(ong).to have_key(:created_at)
+    expect(ong).to have_key(:updated_at)
+    expect(ong).to have_key(:user)
   end
 end
