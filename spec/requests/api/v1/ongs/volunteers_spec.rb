@@ -19,6 +19,7 @@ RSpec.describe '/api/v1/ongs/:ong_id/volunteers', type: :request do
       expect(response).to have_http_status(:ok)
 
       json_response = JSON.parse(response.body, symbolize_names: true)
+
       expect(json_response).to have_key(:data)
       expect(json_response[:data].size).to eq(3)
 
@@ -39,7 +40,7 @@ RSpec.describe '/api/v1/ongs/:ong_id/volunteers', type: :request do
       expect(json_response[:message]).to eq('Presence confirmed successfully')
 
       expect(json_response).to have_key(:data)
-      expect(json_response[:data][:attributes][:confirmed]).to eq(true)
+      expect(json_response[:data][:confirmed]).to eq(true)
       expect_volunteer_attributes(json_response[:data])
     end
   end
@@ -48,16 +49,15 @@ RSpec.describe '/api/v1/ongs/:ong_id/volunteers', type: :request do
 
   def expect_volunteer_attributes(volunteer)
     expect(volunteer).to have_key(:id)
-    expect(volunteer).to have_key(:type)
-    expect(volunteer[:type]).to eq('volunteer')
+    expect(volunteer).to have_key(:confirmed)
+    expect(volunteer).to have_key(:user_id)
+    expect(volunteer).to have_key(:action_id)
+    expect(volunteer).to have_key(:created_at)
+    expect(volunteer).to have_key(:updated_at)
 
-    expect(volunteer).to have_key(:attributes)
-    attributes = volunteer[:attributes]
-    expect(attributes).to have_key(:id)
-    expect(attributes).to have_key(:confirmed)
-    expect(attributes).to have_key(:user_id)
-    expect(attributes).to have_key(:action_id)
-    expect(attributes).to have_key(:created_at)
-    expect(attributes).to have_key(:updated_at)
+    expect(volunteer).to have_key(:action_ong_name)
+    expect(volunteer).to have_key(:action_title)
+    expect(volunteer).to have_key(:user_email)
+    expect(volunteer).to have_key(:user_name)
   end
 end

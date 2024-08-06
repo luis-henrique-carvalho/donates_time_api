@@ -1,20 +1,24 @@
 class Api::V1::Ongs::VolunteersController < Api::V1::ApplicationController
   before_action :set_ong
+  before_action :set_search, only: %i[index]
   before_action :set_volunteer, only: %i[confirm_presence]
   before_action :authenticate_user!
   before_action :authorize_volunteer
 
   # GET /api/v1/ongs/:ong_id/volunteers
   def index
-    @volunteers = @ong.volunteers
+    @volunteers = @search.result
+    @pagy, @volunteers = pagy(@volunteers, items: 12)
 
-    render json: { data: serialize_models(@volunteers) }, status: :ok
+    render json: { data: VolunteerSerializer.render_as_json(@volunteers, view: :default),
+                   pagy: pagy_metadata(@pagy) }, status: :ok
   end
 
   # PUT /api/v1/ongs/:ong_id/volunteers/:volunteer_id/confirm_presence
   def confirm_presence
     @volunteer.confirm_presence
-    render json: { message: 'Presence confirmed successfully', data: serialize_model(@volunteer) }, status: :ok
+    render json: { message: 'Presence confirmed successfully',
+                   data: VolunteerSerializer.render_as_json(@volunteer, view: :default) }, status: :ok
   end
 
   private
@@ -29,5 +33,9 @@ class Api::V1::Ongs::VolunteersController < Api::V1::ApplicationController
 
   def set_volunteer
     @volunteer = Volunteer.find(params[:id])
+  end
+
+  def set_search
+    @search = @ong.volunteers.includes(:user).ransack(params[:q])
   end
 end
