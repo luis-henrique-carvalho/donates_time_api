@@ -23,18 +23,22 @@
 #  fk_rails_...  (ong_id => ongs.id)
 #
 class ActionSerializer < ApplicationSerializer
-  include JSONAPI::Serializer
-  attributes :id, :title, :description, :start_date, :end_date, :status,
-             :max_volunteers, :category, :created_at, :updated_at, :ong_id
+  identifier :id
 
-  attribute :ong do |object|
-    {
-      name: object.ong.name
-    }
+  fields :id, :title, :description, :start_date, :end_date, :status,
+         :max_volunteers, :category, :created_at, :updated_at, :ong_id
+
+  association :ong, blueprint: OngSerializer
+
+  view :with_ong do
+    association :ong, blueprint: OngSerializer
   end
 
-  attribute :volunteers_count do |object|
-    object.volunteers.count
+  view :with_volunteers do
+    association :volunteers, blueprint: VolunteerSerializer
   end
-  belongs_to :ong
+
+  field :vollunter_count do |action|
+    action.volunteers.count
+  end
 end

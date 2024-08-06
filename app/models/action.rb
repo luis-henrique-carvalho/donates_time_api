@@ -49,6 +49,7 @@ class Action < ApplicationRecord
   }
 
   validates :title, :start_date, :end_date, :max_volunteers, :category, presence: true
+  validates :title , uniqueness: true
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[title category]

@@ -8,33 +8,35 @@ class Api::V1::ActionsController < Api::V1::ApplicationController
   def index
     @actions = @search.result
     @pagy, @actions = pagy(@actions, items: 12)
-    render json: { data: serialize_models(@actions), pagy: pagy_metadata(@pagy) }, status: :ok
+    render json: { data: ActionSerializer.render_as_json(@actions), pagy: pagy_metadata(@pagy) }, status: :ok
   end
 
   # GET /api/v1/actions/:id
   def show
-    render json: { data: serialize_model(@action) }, status: :ok
+    render json: { data: ActionSerializer.render_as_json(@action) }, status: :ok
   end
 
   # POST /api/v1/actions
   def create
     @action = Action.new(action_params)
     @action.save!
-    render json: { message: default_messages('Action', name: @action.title)[:created], data: serialize_model(@action) },
-           status: :created
+    render json: {
+      message: default_messages('Action', name: @action.title)[:created],
+      data: ActionSerializer.render_as_json(@action)
+    }, status: :created
   end
 
   # PATCH/PUT /api/v1/actions/:id
   def update
     @action.update!(action_params)
-    render json: { message: default_messages('Action', name: @action.title)[:updated], data: serialize_model(@action) },
+    render json: { message: default_messages('Action', name: @action.title)[:updated], data: ActionSerializer.render_as_json(@action) },
            status: :ok
   end
 
   # DELETE /api/v1/actions/:id
   def destroy
     @action.destroy
-    render json: { message: default_messages('Action', name: @action.title)[:deleted], data: serialize_model(@action) },
+    render json: { message: default_messages('Action', name: @action.title)[:deleted], data: ActionSerializer.render_as_json(@action) },
            status: :ok
   end
 

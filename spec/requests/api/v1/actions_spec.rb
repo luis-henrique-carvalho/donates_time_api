@@ -60,7 +60,7 @@ RSpec.describe '/api/v1/actions', type: :request do
 
       expect(json_response).to have_key(:data)
       expect_action_attributes(json_response[:data])
-      expect(json_response[:data][:attributes][:title]).to eq('New action')
+      expect(json_response[:data][:title]).to eq('New action')
     end
   end
 
@@ -82,7 +82,7 @@ RSpec.describe '/api/v1/actions', type: :request do
 
       expect(json_response).to have_key(:data)
       expect_action_attributes(json_response[:data])
-      expect(json_response[:data][:attributes][:title]).to eq("#{update_params[:title]}")
+      expect(json_response[:data][:title]).to eq("#{update_params[:title]}")
     end
   end
 
@@ -108,20 +108,25 @@ RSpec.describe '/api/v1/actions', type: :request do
 
   def expect_action_attributes(action)
     expect(action).to have_key(:id)
-    expect(action).to have_key(:type)
-    expect(action[:type]).to eq('action')
+    expect(action).to have_key(:category)
+    expect(action).to have_key(:description)
+    expect(action).to have_key(:end_date)
+    expect(action).to have_key(:max_volunteers)
+    expect(action).to have_key(:start_date)
+    expect(action).to have_key(:title)
+    expect(action).to have_key(:ong_id)
+    expect(action).to have_key(:created_at)
+    expect(action).to have_key(:updated_at)
 
-    expect(action).to have_key(:attributes)
-    attributes = action[:attributes]
-    expect(attributes).to have_key(:id)
-    expect(attributes).to have_key(:category)
-    expect(attributes).to have_key(:description)
-    expect(attributes).to have_key(:end_date)
-    expect(attributes).to have_key(:max_volunteers)
-    expect(attributes).to have_key(:start_date)
-    expect(attributes).to have_key(:title)
-    expect(attributes).to have_key(:ong_id)
-    expect(attributes).to have_key(:created_at)
-    expect(attributes).to have_key(:updated_at)
+    expect(action[:ong]).to have_key(:id)
+    expect(action[:ong]).to have_key(:category)
+    expect(action[:ong]).to have_key(:city)
+    expect(action[:ong]).to have_key(:created_at)
+    expect(action[:ong]).to have_key(:description)
+    expect(action[:ong]).to have_key(:email)
+    expect(action[:ong]).to have_key(:name)
+    expect(action[:ong]).to have_key(:state)
+    expect(action[:ong]).to have_key(:updated_at)
+    expect(action[:ong]).to have_key(:user_id)
   end
 end
