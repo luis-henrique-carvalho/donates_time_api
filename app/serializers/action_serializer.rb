@@ -30,15 +30,15 @@ class ActionSerializer < ApplicationSerializer
 
   association :ong, blueprint: OngSerializer
 
+  field :volunteer_count do |action|
+    action.volunteers.size
+  end
+
   view :with_ong do
     association :ong, blueprint: OngSerializer
   end
 
   view :with_volunteers do
     association :volunteers, blueprint: VolunteerSerializer
-  end
-
-  field :vollunter_count do |action|
-    action.volunteers.count
   end
 end

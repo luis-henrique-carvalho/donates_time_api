@@ -1,6 +1,6 @@
 class Api::V1::ActionsController < Api::V1::ApplicationController
   before_action :set_action, only: %i[show update destroy]
-  before_action :set_serch, only: %i[index]
+  before_action :set_search, only: %i[index]
   before_action :authenticate_user!, only: %i[create update destroy]
   before_action :authorize_action
 
@@ -8,7 +8,8 @@ class Api::V1::ActionsController < Api::V1::ApplicationController
   def index
     @actions = @search.result
     @pagy, @actions = pagy(@actions, items: 12)
-    render json: { data: ActionSerializer.render_as_json(@actions), pagy: pagy_metadata(@pagy) }, status: :ok
+    render json: { data: ActionSerializer.render_as_json(@actions, view: :with_volunteers), pagy: pagy_metadata(@pagy) },
+           status: :ok
   end
 
   # GET /api/v1/actions/:id
@@ -55,7 +56,7 @@ class Api::V1::ActionsController < Api::V1::ApplicationController
                   :ong_id)
   end
 
-  def set_serch
-    @search = Action.ransack(params[:q])
+  def set_search
+    @search = Action.includes(:ong, volunteers: :user).ransack(params[:q])
   end
 end
