@@ -1,12 +1,15 @@
 class Api::V1::OngsController < Api::V1::ApplicationController
   before_action :set_ong, only: %i[show update destroy]
+  before_action :set_search, only: %i[index]
   before_action :authenticate_user!, only: %i[create update destroy]
   before_action :authorize_ong
 
   # GET /api/v1/ongs
   def index
-    @ongs = Ong.all
-    render json: { data: OngSerializer.render_as_json(@ongs) }, status: :ok
+    @ongs = @search.result
+    @pagy, @ongs = pagy(@ongs, items: 12)
+    render json: { data: OngSerializer.render_as_json(@ongs),
+                   pagy: pagy_metadata(@pagy) }, status: :ok
   end
 
   # GET /api/v1/ongs/:id
@@ -50,5 +53,9 @@ class Api::V1::OngsController < Api::V1::ApplicationController
 
   def ong_params
     params.require(:ong).permit(:name, :city, :state, :description, :email, :category)
+  end
+
+  def set_search
+    @search = Ong.ransack(params[:q])
   end
 end

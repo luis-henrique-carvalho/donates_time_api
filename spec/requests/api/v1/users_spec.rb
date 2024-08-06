@@ -7,7 +7,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
 
   describe 'GET /users:id' do
     it 'returns the user' do
-      get(api_v1_user_path(user), headers: headers)
+      get(api_v1_user_path(user), headers:)
 
       expect(response).to have_http_status(:ok)
 
