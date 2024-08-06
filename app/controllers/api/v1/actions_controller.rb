@@ -30,15 +30,15 @@ class Api::V1::ActionsController < Api::V1::ApplicationController
   # PATCH/PUT /api/v1/actions/:id
   def update
     @action.update!(action_params)
-    render json: { message: default_messages('Action', name: @action.title)[:updated], data: ActionSerializer.render_as_json(@action) },
-           status: :ok
+    render json: { message: default_messages('Action', name: @action.title)[:updated],
+                   data: ActionSerializer.render_as_json(@action) }, status: :ok
   end
 
   # DELETE /api/v1/actions/:id
   def destroy
     @action.destroy
-    render json: { message: default_messages('Action', name: @action.title)[:deleted], data: ActionSerializer.render_as_json(@action) },
-           status: :ok
+    render json: { message: default_messages('Action', name: @action.title)[:deleted],
+                   data: ActionSerializer.render_as_json(@action) }, status: :ok
   end
 
   private
