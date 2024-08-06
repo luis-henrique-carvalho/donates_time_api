@@ -6,12 +6,12 @@ class Api::V1::OngsController < Api::V1::ApplicationController
   # GET /api/v1/ongs
   def index
     @ongs = Ong.all
-    render json: OngSerializer.render(@ongs) , status: :ok
+    render json: { data: OngSerializer.render_as_json(@ongs) }, status: :ok
   end
 
   # GET /api/v1/ongs/:id
   def show
-    render json: OngSerializer.render(@ong) , status: :ok
+    render json: { data: OngSerializer.render_as_json(@ong) }, status: :ok
   end
 
   # POST /api/v1/ongs
@@ -27,18 +27,15 @@ class Api::V1::OngsController < Api::V1::ApplicationController
   # PATCH/PUT /api/v1/ongs/:id
   def update
     @ong.update(ong_params)
-      render json: { message: default_messages('Ong', name: @ong.name)[:updated],
-      data: OngSerializer.render_as_json(@ong)
-    }, status: :ok
+    render json: { message: default_messages('Ong', name: @ong.name)[:updated],
+                   data: OngSerializer.render_as_json(@ong) }, status: :ok
   end
 
   # DELETE /api/v1/ongs/:id
   def destroy
     @ong.destroy
-      render json: { message: default_messages('Ong', name: @ong.name)[:deleted],
-      data: OngSerializer.render_as_json(@ong)
-      }, status: :ok
-
+    render json: { message: default_messages('Ong', name: @ong.name)[:deleted],
+                   data: OngSerializer.render_as_json(@ong) }, status: :ok
   end
 
   private

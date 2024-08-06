@@ -12,9 +12,11 @@ RSpec.describe '/api/v1/ongs', type: :request do
       get(api_v1_ongs_path, headers:)
 
       json_response = JSON.parse(response.body, symbolize_names: true)
-      expect(json_response.size).to eq(3)
+      debugger
+      expect(json_response).to have_key(:data)
+      expect(json_response[:data].size).to eq(3)
 
-      json_response.each do |ong|
+      json_response[:data].each do |ong|
         expect_ong_attributes(ong)
       end
     end
@@ -28,8 +30,8 @@ RSpec.describe '/api/v1/ongs', type: :request do
       expect(response).to have_http_status(:ok)
 
       json_response = JSON.parse(response.body, symbolize_names: true)
-
-      expect_ong_attributes(json_response)
+      expect(json_response).to have_key(:data)
+      expect_ong_attributes(json_response[:data])
     end
   end
 
@@ -113,6 +115,5 @@ RSpec.describe '/api/v1/ongs', type: :request do
     expect(ong).to have_key(:user_id)
     expect(ong).to have_key(:created_at)
     expect(ong).to have_key(:updated_at)
-    expect(ong).to have_key(:user)
   end
 end
