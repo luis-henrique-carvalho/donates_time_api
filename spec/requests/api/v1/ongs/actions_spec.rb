@@ -27,20 +27,14 @@ RSpec.describe 'Api::V1::Ongs::Actions', type: :request do
 
   def expect_action_attributes(action)
     expect(action).to have_key(:id)
-    expect(action).to have_key(:type)
-    expect(action[:type]).to eq('action')
-
-    expect(action).to have_key(:attributes)
-    attributes = action[:attributes]
-    expect(attributes).to have_key(:id)
-    expect(attributes).to have_key(:category)
-    expect(attributes).to have_key(:description)
-    expect(attributes).to have_key(:end_date)
-    expect(attributes).to have_key(:max_volunteers)
-    expect(attributes).to have_key(:start_date)
-    expect(attributes).to have_key(:title)
-    expect(attributes).to have_key(:ong_id)
-    expect(attributes).to have_key(:created_at)
-    expect(attributes).to have_key(:updated_at)
+    expect(action).to have_key(:category)
+    expect(action).to have_key(:description)
+    expect(action).to have_key(:end_date)
+    expect(action).to have_key(:max_volunteers)
+    expect(action).to have_key(:start_date)
+    expect(action).to have_key(:title)
+    expect(action).to have_key(:ong_id)
+    expect(action).to have_key(:created_at)
+    expect(action).to have_key(:updated_at)
   end
 end
