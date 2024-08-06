@@ -25,6 +25,24 @@ class VolunteerSerializer < ApplicationSerializer
 
   fields :id, :confirmed, :user_id, :action_id, :created_at, :updated_at
 
+  view :default do
+    field :user_name do |volunteer|
+      volunteer.user.name
+    end
+
+    field :user_email do |volunteer|
+      volunteer.user.email
+    end
+
+    field :action_title do |volunteer|
+      volunteer.action.title
+    end
+
+    field :action_ong_name do |volunteer|
+      volunteer.action.ong.name
+    end
+  end
+
   view :with_user do
     association :user, blueprint: UserSerializer
   end

@@ -12,7 +12,6 @@ RSpec.describe '/api/v1/ongs', type: :request do
       get(api_v1_ongs_path, headers:)
 
       json_response = JSON.parse(response.body, symbolize_names: true)
-      debugger
       expect(json_response).to have_key(:data)
       expect(json_response[:data].size).to eq(3)
 
