@@ -20,7 +20,7 @@
 #  fk_rails_...  (action_id => actions.id)
 #  fk_rails_...  (user_id => users.id)
 #
-class VolunteerSerializer
+class VolunteerSerializer < ApplicationSerializer
   include JSONAPI::Serializer
 
   attributes :id, :confirmed, :user_id, :action_id, :created_at, :updated_at
@@ -28,7 +28,7 @@ class VolunteerSerializer
   attribute :user do |object|
     {
       name: object.user.name,
-      email: object.user.email,
+      email: object.user.email
     }
   end
 
@@ -38,7 +38,7 @@ class VolunteerSerializer
       status: object.action.status,
       category: object.action.category,
       start_date: object.action.start_date,
-      end_date: object.action.end_date,
+      end_date: object.action.end_date
     }
   end
 end

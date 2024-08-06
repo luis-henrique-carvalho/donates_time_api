@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 ruby '3.2.0'
 
 gem 'bcrypt', '~> 3.1.7'
+gem 'blueprinter'
 gem 'bootsnap', require: false
 gem 'devise'
 gem 'devise-jwt'
@@ -29,6 +30,12 @@ group :development, :test do
   gem 'faker'
   gem 'rails-erd'
   gem 'rspec-rails'
+  gem 'rubocop', require: false
+  gem 'rubocop-capybara', require: false
+  gem 'rubocop-factory_bot', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 group :development do

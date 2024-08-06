@@ -19,7 +19,12 @@
 #  index_users_on_jti                   (jti)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
-class UserSerializer
-  include JSONAPI::Serializer
-  attributes :id, :email, :name
+class UserSerializer < ApplicationSerializer
+  identifier :id
+
+  fields :id, :email, :name
+
+  view :with_ongs do
+    association :ongs, blueprint: OngSerializer
+  end
 end

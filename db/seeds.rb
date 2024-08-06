@@ -9,8 +9,8 @@
 #   end
 
 # Create User
-user = FactoryBot.create(:user, email: "admin@admin.com")
-cliente = FactoryBot.create(:user, email: "client@client.com")
+user = FactoryBot.create(:user, email: 'admin@admin.com')
+cliente = FactoryBot.create(:user, email: 'client@client.com')
 
 # Create Ong
 ong = FactoryBot.create(:ong, user:)

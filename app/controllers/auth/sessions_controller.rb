@@ -8,11 +8,10 @@ class Auth::SessionsController < Devise::SessionsController
     headers['Authorization'] = @token
 
     render json: {
-      code: 200, message: 'Logged in successfully.',
+      code: 200,
+      message: 'Logged in successfully.',
       token: @token,
-      data: {
-        user: UserSerializer.new(resource).serializable_hash[:data][:attributes]
-      }
+      data: UserSerializer.render_as_json(resource, view: :default)
     }, status: :ok
   end
 

@@ -17,6 +17,8 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :users, only: %i[show]
+
       resources :actions, only: %i[index show create update destroy] do
         resources :volunteers, only: %i[index], controller: 'actions/volunteers'
       end

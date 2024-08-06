@@ -6,27 +6,35 @@ class Api::V1::OngsController < Api::V1::ApplicationController
   # GET /api/v1/ongs
   def index
     @ongs = Ong.all
-    render json: { data: serialize_models(@ongs) }, status: :ok
+    render json: OngSerializer.render(@ongs) , status: :ok
   end
 
   # GET /api/v1/ongs/:id
   def show
-    render json: { data: serialize_model(@ong) }, status: :ok
+    render json: OngSerializer.render(@ong) , status: :ok
   end
 
   # POST /api/v1/ongs
   def create
     @ong = Ong.new(ong_params.merge(user_id: current_user.id))
-    @ong.save!
-    render json: { message: default_messages('Ong', name: @ong.name)[:created], data: serialize_model(@ong) },
-           status: :created
+    if @ong.save
+      render json: {
+        message: default_messages('Ong', name: @ong.name)[:created],
+        ong: OngSerializer.render_as_json(@ong)
+      }, status: :created
+    else
+      render json: { errors: @ong.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   # PATCH/PUT /api/v1/ongs/:id
   def update
-    @ong.update!(ong_params)
-    render json: { message: default_messages('Ong', name: @ong.name)[:updated], data: serialize_model(@ong) },
-           status: :ok
+    if @ong.update(ong_params)
+      render json: { message: default_messages('Ong', name: @ong.name)[:updated],
+      data: serialize_model(@ong)
+    }, status: :ok
+    else
+      render json: { errors: @ong.errors.full_messages }, status: :unprocessable_entity
   end
 
   # DELETE /api/v1/ongs/:id

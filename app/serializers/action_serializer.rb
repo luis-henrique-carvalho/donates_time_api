@@ -22,15 +22,14 @@
 #
 #  fk_rails_...  (ong_id => ongs.id)
 #
-class ActionSerializer
+class ActionSerializer < ApplicationSerializer
   include JSONAPI::Serializer
   attributes :id, :title, :description, :start_date, :end_date, :status,
              :max_volunteers, :category, :created_at, :updated_at, :ong_id
 
-
   attribute :ong do |object|
     {
-      name: object.ong.name,
+      name: object.ong.name
     }
   end
 
