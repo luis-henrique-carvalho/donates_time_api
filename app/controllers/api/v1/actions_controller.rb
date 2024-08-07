@@ -8,13 +8,13 @@ class Api::V1::ActionsController < Api::V1::ApplicationController
   def index
     @actions = @search.result
     @pagy, @actions = pagy(@actions, items: 12)
-    render json: { data: ActionSerializer.render_as_json(@actions, view: :with_volunteers),
+    render json: { data: ActionSerializer.render_as_json(@actions, view: :with_ong_and_volunteers),
                    pagy: pagy_metadata(@pagy) }, status: :ok
   end
 
   # GET /api/v1/actions/:id
   def show
-    render json: { data: ActionSerializer.render_as_json(@action, view: :with_volunteers) }, status: :ok
+    render json: { data: ActionSerializer.render_as_json(@action, view: :with_ong_and_volunteers) }, status: :ok
   end
 
   # POST /api/v1/actions
@@ -23,7 +23,7 @@ class Api::V1::ActionsController < Api::V1::ApplicationController
     @action.save!
     render json: {
       message: default_messages('Action', name: @action.title)[:created],
-      data: ActionSerializer.render_as_json(@action)
+      data: ActionSerializer.render_as_json(@action, view: :with_ong)
     }, status: :created
   end
 
@@ -31,14 +31,14 @@ class Api::V1::ActionsController < Api::V1::ApplicationController
   def update
     @action.update!(action_params)
     render json: { message: default_messages('Action', name: @action.title)[:updated],
-                   data: ActionSerializer.render_as_json(@action) }, status: :ok
+                   data: ActionSerializer.render_as_json(@action, view: :with_ong) }, status: :ok
   end
 
   # DELETE /api/v1/actions/:id
   def destroy
     @action.destroy
     render json: { message: default_messages('Action', name: @action.title)[:deleted],
-                   data: ActionSerializer.render_as_json(@action) }, status: :ok
+                   data: ActionSerializer.render_as_json(@action, view: :with_ong) }, status: :ok
   end
 
   private

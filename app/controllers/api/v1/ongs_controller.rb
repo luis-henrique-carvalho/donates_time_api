@@ -14,7 +14,7 @@ class Api::V1::OngsController < Api::V1::ApplicationController
 
   # GET /api/v1/ongs/:id
   def show
-    render json: { data: OngSerializer.render_as_json(@ong) }, status: :ok
+    render json: { data: OngSerializer.render_as_json(@ong, view: :with_actions) }, status: :ok
   end
 
   # POST /api/v1/ongs
@@ -44,7 +44,7 @@ class Api::V1::OngsController < Api::V1::ApplicationController
   private
 
   def set_ong
-    @ong = Ong.find(params[:id])
+    @ong = Ong.includes(:user,:actions).find(params[:id])
   end
 
   def authorize_ong
@@ -56,6 +56,6 @@ class Api::V1::OngsController < Api::V1::ApplicationController
   end
 
   def set_search
-    @search = Ong.ransack(params[:q])
+    @search = Ong.includes(:user).ransack(params[:q])
   end
 end

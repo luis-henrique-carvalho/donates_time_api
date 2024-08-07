@@ -28,8 +28,6 @@ class ActionSerializer < ApplicationSerializer
   fields :id, :title, :description, :start_date, :end_date, :status,
          :max_volunteers, :category, :created_at, :updated_at, :ong_id
 
-  association :ong, blueprint: OngSerializer
-
   field :volunteer_count do |action|
     action.volunteers.size
   end
@@ -40,5 +38,10 @@ class ActionSerializer < ApplicationSerializer
 
   view :with_volunteers do
     association :volunteers, blueprint: VolunteerSerializer
+  end
+
+  view :with_ong_and_volunteers do
+    include_view :with_ong
+    include_view :with_volunteers
   end
 end

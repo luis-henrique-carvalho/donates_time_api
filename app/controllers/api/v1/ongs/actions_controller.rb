@@ -6,7 +6,7 @@ class Api::V1::Ongs::ActionsController < Api::V1::ApplicationController
   def index
     @actions = @search.result
     @pagy, @actions = pagy(@actions, items: 12)
-    render json: { data: ActionSerializer.render_as_json(@actions, view: :with_volunteers),
+    render json: { data: ActionSerializer.render_as_json(@actions, view: :with_ong_and_volunteers),
                    pagy: pagy_metadata(@pagy) }, status: :ok
   end
 

@@ -29,4 +29,9 @@ class OngSerializer < ApplicationSerializer
   view :with_user do
     association :user, blueprint: UserSerializer
   end
+
+  view :with_actions do
+    include_view :with_user
+    association :actions, blueprint: ActionSerializer
+  end
 end
