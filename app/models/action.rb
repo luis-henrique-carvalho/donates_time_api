@@ -52,10 +52,10 @@ class Action < ApplicationRecord
   validates :title, uniqueness: true
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[title category]
+    %w[title category state category]
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[ong]
+    %w[ong volunteers]
   end
 end

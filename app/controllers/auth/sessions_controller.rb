@@ -11,7 +11,7 @@ class Auth::SessionsController < Devise::SessionsController
       code: 200,
       message: 'Logged in successfully.',
       token: @token,
-      data: UserSerializer.render_as_json(resource, view: :default)
+      user: UserSerializer.render_as_json(resource, view: :default)
     }, status: :ok
   end
 

@@ -44,4 +44,12 @@ class Ong < ApplicationRecord
 
   validates :name, :city, :state, :description, :email, :category, presence: true
   validates :user_id, uniqueness: true
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[name category state category]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user actions volunteers]
+  end
 end
