@@ -44,7 +44,7 @@ class Api::V1::OngsController < Api::V1::ApplicationController
   private
 
   def set_ong
-    @ong = Ong.includes(:user,:actions).find(params[:id])
+    @ong = Ong.includes(:user, actions: :volunteers).find(params[:id])
   end
 
   def authorize_ong
@@ -56,6 +56,6 @@ class Api::V1::OngsController < Api::V1::ApplicationController
   end
 
   def set_search
-    @search = Ong.includes(:user).ransack(params[:q])
+    @search = Ong.includes(:user,:actions).ransack(params[:q])
   end
 end
