@@ -11,7 +11,6 @@ RSpec.describe '/api/v1/users/:user_id/ong', type: :request do
       get(api_v1_users_ong_index_path(user_id: user.id), headers:)
       expect(response).to have_http_status(:ok)
 
-      debugger
       json_response = JSON.parse(response.body, symbolize_names: true)
       expect(json_response).to have_key(:data)
       expect_ong_attributes(json_response[:data])
@@ -29,5 +28,9 @@ RSpec.describe '/api/v1/users/:user_id/ong', type: :request do
     expect(ong).to have_key(:user_id)
     expect(ong).to have_key(:created_at)
     expect(ong).to have_key(:updated_at)
+    expect(ong).to have_key(:volunteers_total)
+    expect(ong).to have_key(:actions_slots_total)
+    expect(ong).to have_key(:actions_slots_available)
+    expect(ong).to have_key(:confirmed_volunteers)
   end
 end

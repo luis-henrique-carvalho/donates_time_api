@@ -114,5 +114,6 @@ RSpec.describe '/api/v1/ongs', type: :request do
     expect(ong).to have_key(:user_id)
     expect(ong).to have_key(:created_at)
     expect(ong).to have_key(:updated_at)
+    expect(ong).to have_key(:volunteers_total)
   end
 end

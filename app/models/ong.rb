@@ -57,4 +57,20 @@ class Ong < ApplicationRecord
   def reached_action_limit?
     actions.count >= actions_limit
   end
+
+  def volunteers_total
+    volunteers.distinct.count
+  end
+
+  def actions_slots_total
+    actions.sum(:max_volunteers)
+  end
+
+  def actions_slots_available
+    actions_slots_total - volunteers_total
+  end
+
+  def confirmed_volunteers
+    volunteers.where(confirmed: true).count
+  end
 end
