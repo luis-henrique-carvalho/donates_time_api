@@ -51,11 +51,21 @@ class Action < ApplicationRecord
   validates :title, :start_date, :end_date, :max_volunteers, :category, presence: true
   validates :title, uniqueness: true
 
+  validate :action_limit_not_exceeded
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[title category state category]
   end
 
   def self.ransackable_associations(_auth_object = nil)
     %w[ong volunteers]
+  end
+
+  private
+
+  def action_limit_not_exceeded
+    return unless ong.actions.count >= ong.actions_limit
+
+    errors.add(:base, 'Limite de ações atingido para esta ONG')
   end
 end
