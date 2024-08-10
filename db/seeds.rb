@@ -16,7 +16,7 @@ cliente = FactoryBot.create(:user, email: 'teste2@teste2.com')
 ong = FactoryBot.create(:ong, user:)
 
 # Create Action
-6.times do
+600.times do
   action = FactoryBot.create(:action, ong:)
 
   FactoryBot.create(:volunteer, user:, action:)

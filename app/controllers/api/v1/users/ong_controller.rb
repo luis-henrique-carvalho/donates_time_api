@@ -19,6 +19,6 @@ class Api::V1::Users::OngController < Api::V1::ApplicationController
   end
 
   def set_ong
-    @ong = Ong.with_stats.find_by(user: @user)
+    @ong = Ong.with_stats.find_by(user_id: @user.id)
   end
 end

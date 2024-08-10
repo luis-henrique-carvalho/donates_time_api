@@ -48,7 +48,8 @@ class Ong < ApplicationRecord
 
 
   scope :with_stats, -> {
-      joins(:actions)
+      includes(actions: :volunteers)
+      .joins(:actions)
       .left_joins(actions: :volunteers)
       .select(
         'ongs.*',
