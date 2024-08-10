@@ -5,10 +5,10 @@ RSpec.describe '/api/v1/users/:user_id/ong', type: :request do
   let(:headers) { authenticated_header(user) }
 
   describe 'GET /api/v1/users/:user_id/ong' do
-    let!(:ong) { create(:ong, user: user) }
+    let!(:ong) { create(:ong, user:) }
 
     it 'returns the ONG' do
-      get api_v1_users_ong_index_path(user_id: user.id), headers: headers
+      get(api_v1_users_ong_index_path(user_id: user.id), headers:)
       expect(response).to have_http_status(:ok)
 
       debugger

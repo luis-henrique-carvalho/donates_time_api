@@ -56,6 +56,6 @@ class Api::V1::OngsController < Api::V1::ApplicationController
   end
 
   def set_search
-    @search = Ong.includes(:user,:actions).ransack(params[:q])
+    @search = Ong.includes(:user, :actions).ransack(params[:q])
   end
 end
