@@ -6,6 +6,8 @@ RSpec.describe '/api/v1/users/:user_id/ong', type: :request do
 
   describe 'GET /api/v1/users/:user_id/ong' do
     let!(:ong) { create(:ong, user:) }
+    let!(:action) { create(:action, ong:) }
+    let!(:volunteer) { create(:volunteer, action:, user:) }
 
     it 'returns the ONG' do
       get(api_v1_users_ong_index_path(user_id: user.id), headers:)
