@@ -1,8 +1,8 @@
 class Api::V1::Users::OngController < Api::V1::ApplicationController
-  before_action :authorize_users_ong
   before_action :authenticate_user!
   before_action :set_user
   before_action :set_ong
+  before_action :authorize_users_ong
 
   def index
     render json: { data: OngSerializer.render_as_json(@ong, view: :overview) }, status: :ok

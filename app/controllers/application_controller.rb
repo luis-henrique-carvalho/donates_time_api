@@ -12,7 +12,7 @@ class ApplicationController < ActionController::API
                                  'c979ab39fe5ce829d39eb46c88555055ac5fb38e5d3ee60e1f58df88105eb211ef1c08d4f3f1458af67fd850da993ee635a11ad14932b33564775da98687ae5d').first
         @current_user = User.find(jwt_payload['sub'])
       rescue JWT::DecodeError, ActiveRecord::RecordNotFound => e
-        render json: { error: e.message }, status: :unauthorized
+        render json: { error: "Token de autenticação inválido: #{e.message}" }, status: :unauthorized
       end
     else
       render json: { error: 'Token de autenticação ausente' }, status: :unauthorized
