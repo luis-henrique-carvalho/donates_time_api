@@ -11,7 +11,7 @@ class Auth::RegistrationsController < Devise::RegistrationsController
       render json: {
         status: { code: 200, message: 'Signed up successfully.',
                   token: @token,
-                  user: UserSerializer.render_as_json(resource, view: :default)}
+                  user: UserSerializer.render_as_json(resource, view: :default) }
       }
     else
       render json: {

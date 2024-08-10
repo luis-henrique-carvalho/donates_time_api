@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      namespace :users do
+        get 'ong/index'
+      end
+    end
+  end
   devise_for :users, path: 'auth', path_names: {
     sign_in: 'login',
     sign_out: 'logout',
@@ -17,7 +24,9 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :users, only: %i[show]
+      resources :users, only: %i[show] do
+        resources :ong, only: %i[index], controller: 'users/ong'
+      end
 
       resources :actions, only: %i[index show create update destroy] do
         resources :volunteers, only: %i[index], controller: 'actions/volunteers'
