@@ -2,16 +2,17 @@
 #
 # Table name: ongs
 #
-#  id          :uuid             not null, primary key
-#  category    :integer          default("education"), not null
-#  city        :string           not null
-#  description :text             not null
-#  email       :string           not null
-#  name        :string           not null
-#  state       :string           not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  user_id     :uuid             not null
+#  id            :uuid             not null, primary key
+#  actions_limit :integer          default(6), not null
+#  category      :integer          default("education"), not null
+#  city          :string           not null
+#  description   :text             not null
+#  email         :string           not null
+#  name          :string           not null
+#  state         :string           not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  user_id       :uuid             not null
 #
 # Indexes
 #
