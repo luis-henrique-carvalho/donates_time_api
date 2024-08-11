@@ -46,9 +46,8 @@ class Ong < ApplicationRecord
   validates :name, :city, :state, :description, :email, :category, presence: true
   validates :user_id, uniqueness: true
 
-
-  scope :with_stats, -> {
-      includes(actions: :volunteers)
+  scope :with_stats, lambda {
+    includes(actions: :volunteers)
       .left_joins(actions: :volunteers)
       .select(
         'ongs.*',
