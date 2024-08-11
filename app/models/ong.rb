@@ -46,6 +46,19 @@ class Ong < ApplicationRecord
   validates :name, :city, :state, :description, :email, :category, presence: true
   validates :user_id, uniqueness: true
 
+  scope :with_stats, lambda {
+    includes(actions: :volunteers)
+      .left_joins(actions: :volunteers)
+      .select(
+        'ongs.*',
+        'COUNT(DISTINCT volunteers.id) AS volunteers_total',
+        'SUM(actions.max_volunteers) AS actions_slots_total',
+        'SUM(actions.max_volunteers) - COUNT(DISTINCT volunteers.id) AS actions_slots_available',
+        'COUNT(DISTINCT CASE WHEN volunteers.confirmed = TRUE THEN volunteers.id END) AS confirmed_volunteers'
+      )
+      .group('ongs.id')
+  }
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[name category state category]
   end
@@ -56,18 +69,6 @@ class Ong < ApplicationRecord
 
   def reached_action_limit?
     actions.count >= actions_limit
-  end
-
-  def volunteers_total
-    volunteers.distinct.count
-  end
-
-  def actions_slots_total
-    actions.sum(:max_volunteers)
-  end
-
-  def actions_slots_available
-    actions_slots_total - volunteers_total
   end
 
   def confirmed_volunteers

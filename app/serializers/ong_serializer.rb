@@ -28,7 +28,7 @@ class OngSerializer < ApplicationSerializer
   fields :id, :category, :city, :description, :email, :name, :state, :user_id, :created_at, :updated_at
 
   field :volunteers_total do |ong|
-    ong.volunteers_total
+    ong.volunteers.distinct.count
   end
 
   view :with_user do
@@ -43,17 +43,8 @@ class OngSerializer < ApplicationSerializer
   view :overview do
     include_view :with_actions
 
-    field :actions_slots_total do |ong|
-      ong.actions_slots_total
-    end
-
-    field :actions_slots_available do |ong|
-      ong.actions_slots_available
-    end
-
-    field :confirmed_volunteers do |ong|
-      ong.confirmed_volunteers
-    end
-
+    field :actions_slots_total
+    field :actions_slots_available
+    field :confirmed_volunteers
   end
 end

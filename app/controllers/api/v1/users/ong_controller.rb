@@ -1,7 +1,7 @@
 class Api::V1::Users::OngController < Api::V1::ApplicationController
-  before_action :authenticate_user!
   before_action :set_user
   before_action :set_ong
+  before_action :authenticate_user!
   before_action :authorize_users_ong
 
   def index
@@ -15,10 +15,10 @@ class Api::V1::Users::OngController < Api::V1::ApplicationController
   end
 
   def set_user
-    @user = User.includes(ong: { actions: :volunteers }).find(params[:user_id])
+    @user = User.find(params[:user_id])
   end
 
   def set_ong
-    @ong = @user.ong
+    @ong = Ong.with_stats.find_by(user_id: @user.id)
   end
 end
