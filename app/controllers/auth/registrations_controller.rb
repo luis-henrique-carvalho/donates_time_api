@@ -14,9 +14,7 @@ class Auth::RegistrationsController < Devise::RegistrationsController
                   user: UserSerializer.render_as_json(resource, view: :default) }
       }
     else
-      render json: {
-        status: { message: "User couldn't be created successfully. #{resource.errors.full_messages.to_sentence}" }
-      }, status: :unprocessable_entity
+      render json: { error: resource.errors.full_messages }, status: :unprocessable_entity
     end
   end
 end
