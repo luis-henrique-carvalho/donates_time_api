@@ -29,7 +29,18 @@ class Volunteer < ApplicationRecord
   validates :user_id, :action_id, presence: true
   validates :user_id, uniqueness: { scope: :action_id }
 
+  validate :action_limit_not_exceeded, on: :create
+
   def confirm_presence
     update(confirmed: true)
+  end
+
+  private
+
+  def action_limit_not_exceeded
+    return unless action.volunteers.count >= action.max_volunteers
+
+    errors.add(:action, 'is full')
+    throw(:abort)
   end
 end
