@@ -27,7 +27,7 @@ FactoryBot.define do
     name { Faker::Name.name }
     city { Faker::Address.city }
     state { Faker::Address.state }
-    description { Faker::Lorem.paragraph_by_chars(number: 256, supplemental: false) }
+    description { Faker::Lorem.paragraph_by_chars(number: 1024, supplemental: false) }
     email { Faker::Internet.email }
     category { rand(0..11) }
 

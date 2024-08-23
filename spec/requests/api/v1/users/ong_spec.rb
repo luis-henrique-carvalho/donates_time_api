@@ -10,7 +10,7 @@ RSpec.describe '/api/v1/users/:user_id/ong', type: :request do
     let!(:volunteer) { create(:volunteer, action:, user:) }
 
     it 'returns the ONG' do
-      get(api_v1_users_ong_index_path(user_id: user.id), headers:)
+      get(api_v1_user_ong_index_path(user_id: user.id), headers:)
       expect(response).to have_http_status(:ok)
 
       json_response = JSON.parse(response.body, symbolize_names: true)

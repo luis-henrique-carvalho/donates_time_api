@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-  namespace :api do
-    namespace :v1 do
-      namespace :users do
-        get 'ong/index'
-      end
-    end
-  end
   devise_for :users, path: 'auth', path_names: {
     sign_in: 'login',
     sign_out: 'logout',
