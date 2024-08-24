@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe OngPolicy, type: :policy do
+  subject { described_class }
+
   let(:user) { create(:user) }
 
   before do
     login(user)
   end
-
-  subject { described_class }
 
   permissions '.scope' do
     pending "add some examples to (or delete) #{__FILE__}"

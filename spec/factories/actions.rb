@@ -25,7 +25,7 @@
 FactoryBot.define do
   factory :action do
     title { Faker::Name.name }
-    start_date { Time.now - 2.day }
+    start_date { Time.now - 2.days }
     end_date { Time.now - 1.day }
     description { Faker::Lorem.paragraph_by_chars(number: 1024, supplemental: false) }
     max_volunteers { rand(1..10) }

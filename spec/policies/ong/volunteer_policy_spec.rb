@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Ong::VolunteerPolicy, type: :policy do
+  subject { described_class }
+
   let!(:user) { create(:user) }
   let(:other_user) { create(:user) }
   let!(:ong) { create(:ong, user:) }
   let!(:action) { create(:action, ong:) }
   let!(:volunteer) { create(:volunteer, action:) }
-
-  subject { described_class }
 
   permissions :index? do
     it 'allows access for any user' do

@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe '/api/v1/actions/:action_id/volunteers', type: :request do
   let!(:user) { create(:user) }
-  let!(:action) { create(:action) }
+  let!(:action) { create(:action, max_volunteers: 6) }
   let!(:volunteers) { create_list(:volunteer, 3, action:) }
 
   let(:headers) { authenticated_header(user) }
