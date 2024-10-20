@@ -9,15 +9,15 @@
 #   end
 
 # Create User
-user = FactoryBot.create(:user, email: 'teste10@teste10.com')
-cliente = FactoryBot.create(:user, email: 'teste2@teste2.com')
+# user = FactoryBot.create(:user, email: 'teste10@teste10.com')
+# cliente = FactoryBot.create(:user, email: 'teste2@teste2.com')
 
-# Create Ong
-ong = FactoryBot.create(:ong, user:)
+# # Create Ong
+# ong = FactoryBot.create(:ong, user:)
 
-# Create Action
-6.times do
-  action = FactoryBot.create(:action, ong:)
+# # Create Action
+# 6.times do
+#   action = FactoryBot.create(:action, ong:)
 
-  FactoryBot.create(:volunteer, user:, action:)
-end
+#   FactoryBot.create(:volunteer, user:, action:)
+# end
