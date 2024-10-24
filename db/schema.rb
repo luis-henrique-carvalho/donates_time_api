@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_24_014235) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_24_015152) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,21 +28,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_24_014235) do
     t.index ["ong_id"], name: "index_actions_on_ong_id"
   end
 
-  create_table "channels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "chats", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.uuid "action_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["action_id"], name: "index_channels_on_action_id"
+    t.index ["action_id"], name: "index_chats_on_action_id"
   end
 
   create_table "messages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "content"
-    t.uuid "channel_id", null: false
+    t.uuid "chat_id", null: false
     t.uuid "volunteer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["channel_id"], name: "index_messages_on_channel_id"
+    t.index ["chat_id"], name: "index_messages_on_chat_id"
     t.index ["volunteer_id"], name: "index_messages_on_volunteer_id"
   end
 
@@ -190,8 +190,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_24_014235) do
   end
 
   add_foreign_key "actions", "ongs"
-  add_foreign_key "channels", "actions"
-  add_foreign_key "messages", "channels"
+  add_foreign_key "chats", "actions"
+  add_foreign_key "messages", "chats"
   add_foreign_key "messages", "volunteers"
   add_foreign_key "ongs", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

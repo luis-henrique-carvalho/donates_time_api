@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: channels
+# Table name: chats
 #
 #  id         :uuid             not null, primary key
 #  name       :string
@@ -10,14 +10,14 @@
 #
 # Indexes
 #
-#  index_channels_on_action_id  (action_id)
+#  index_chats_on_action_id  (action_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (action_id => actions.id)
 #
-class Channel < ApplicationRecord
-  belongs_to :action
+require 'rails_helper'
 
-  has_many :messages, dependent: :destroy
+RSpec.describe Chat, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: channels
+# Table name: chats
 #
 #  id         :uuid             not null, primary key
 #  name       :string
@@ -10,15 +10,12 @@
 #
 # Indexes
 #
-#  index_channels_on_action_id  (action_id)
+#  index_chats_on_action_id  (action_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (action_id => actions.id)
 #
-FactoryBot.define do
-  factory :channel do
-    name { "MyString" }
-    action { nil }
-  end
+class Chat < ApplicationRecord
+  belongs_to :action
 end
