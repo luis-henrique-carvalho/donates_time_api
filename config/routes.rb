@@ -27,4 +27,6 @@ Rails.application.routes.draw do
       resources :volunteers, only: %i[show create destroy]
     end
   end
+
+  mount ActionCable.server => '/chat'
 end

@@ -18,4 +18,6 @@
 #
 class Chat < ApplicationRecord
   belongs_to :action
+
+  has_many :messages, dependent: :destroy
 end
