@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
       resources :users, only: %i[show] do
         resources :ong, only: %i[index], controller: 'users/ong'
+        resources :actions, only: %i[index], controller: 'users/actions'
       end
 
       resources :chats, only: %i[] do

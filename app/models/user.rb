@@ -24,6 +24,7 @@ class User < ApplicationRecord
 
   has_one :ong, dependent: :destroy
   has_many :volunteers, dependent: :destroy
+  has_many :actions, through: :volunteers
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
