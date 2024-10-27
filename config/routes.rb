@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       end
 
       resources :users, only: %i[show] do
+        resources :actions, only: %i[index], controller: 'users/actions'
         resources :ong, only: %i[index], controller: 'users/ong'
       end
 

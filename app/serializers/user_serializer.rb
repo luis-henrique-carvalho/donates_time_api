@@ -24,7 +24,7 @@ class UserSerializer < ApplicationSerializer
 
   fields :id, :email, :name
 
-  view :with_ong do
+  view :private do
     association :ong, blueprint: OngSerializer
   end
 end

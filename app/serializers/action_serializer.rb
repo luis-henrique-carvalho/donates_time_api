@@ -32,16 +32,13 @@ class ActionSerializer < ApplicationSerializer
     action.volunteers.size
   end
 
-  view :with_ong do
+  view :private do
     association :ong, blueprint: OngSerializer
   end
 
-  view :with_volunteers do
-    association :volunteers, blueprint: VolunteerSerializer
-  end
-
   view :full do
-    include_view :with_ong
-    include_view :with_volunteers
+    include_view :private
+
+    association :volunteers, blueprint: VolunteerSerializer
   end
 end
