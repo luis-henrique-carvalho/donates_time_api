@@ -1,0 +1,9 @@
+{
+    "title": "Index Message Response",
+    "type": "object",
+    "properties": {
+        "data": {
+            "$ref": "schemas/chats/messages/response/_common.json"
+        }
+    }
+}
