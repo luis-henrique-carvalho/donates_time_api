@@ -21,8 +21,8 @@
 #
 FactoryBot.define do
   factory :message do
-    content { "MyText" }
-    chat { nil }
-    volunteer { nil }
+    content { Faker::Lorem.sentence }
+    association :chat
+    association :volunteer
   end
 end

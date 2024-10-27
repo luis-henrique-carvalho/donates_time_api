@@ -18,7 +18,7 @@
 #
 FactoryBot.define do
   factory :chat do
-    name { "MyString" }
-    action { nil }
+    name { Faker::Name.name }
+    association :action
   end
 end
