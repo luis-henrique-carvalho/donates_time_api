@@ -22,4 +22,12 @@
 class Message < ApplicationRecord
   belongs_to :chat
   belongs_to :volunteer
+
+  after_create_commit :broadcast_message
+
+  private
+
+  def broadcast_message
+    ActionCable.server.broadcast("chat_#{chat_id}", MessageSerializer.render_as_json(self))
+  end
 end

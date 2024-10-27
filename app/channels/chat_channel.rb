@@ -1,20 +1,26 @@
 class ChatChannel < ApplicationCable::Channel
+  before_subscribe :find_chat
+  # before_subscribe :verifi_current_user
+
   def subscribed
-    chat = Chat.find(params[:chat_id])
-    stream_for chat
+    stream_from "chat_#{@chat.id}"
   end
 
   def unsubscribed
-    chat = Chat.find(params[:chat_id])
-    stop_stream_for chat
+    # Qualquer ação de limpeza quando o usuário desconectar
   end
 
-  def send_message
-    chat = Chat.find(params[:chat_id])
-    volunteer = Volunteer.find(params[:volunteer_id])
+  private
 
-    message = chat.messages.create!(content: params[:content], volunteer: volunteer)
+  def find_chat
+    return if @chat = Chat.find(params[:chat_id])
 
-    ChatChannel.broadcast_to chat, message: MessageSerializer.render(message, root: :data)
+    reject
+  end
+
+  def verifi_current_user
+    return if current_user.vollunteers.include?(@chat.volunteer)
+
+    reject
   end
 end

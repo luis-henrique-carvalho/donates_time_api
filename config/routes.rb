@@ -21,6 +21,10 @@ Rails.application.routes.draw do
         resources :ong, only: %i[index], controller: 'users/ong'
       end
 
+      resources :chats, only: %i[] do
+        resources :messages, only: %i[index create], controller: 'chats/messages'
+      end
+
       resources :actions, only: %i[index show create update destroy] do
         resources :volunteers, only: %i[index], controller: 'actions/volunteers'
       end
