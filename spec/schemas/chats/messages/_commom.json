@@ -1,0 +1,17 @@
+{
+    "title": "Chat Message Commom",
+    "type": "Chat Commom",
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "created_at": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "updated_at": {
+            "type": "string",
+            "format": "date-time"
+        }
+    }
+}

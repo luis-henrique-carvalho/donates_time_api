@@ -40,7 +40,7 @@ class ActionSerializer < ApplicationSerializer
     association :volunteers, blueprint: VolunteerSerializer
   end
 
-  view :with_ong_and_volunteers do
+  view :full do
     include_view :with_ong
     include_view :with_volunteers
   end
