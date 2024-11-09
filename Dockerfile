@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1
 
 # Versão do Ruby que será usada
-FROM ruby:3.2.0
+FROM ruby:3.2.2
 
 # Instalação de dependências
 RUN apt-get update -qq && \
@@ -30,4 +30,4 @@ ENTRYPOINT ["entrypoint.sh"]
 
 # Escutar porta 3001 e rodar o servidor
 EXPOSE 3001
-CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3001"]
+CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]
