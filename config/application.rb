@@ -15,7 +15,7 @@ module DonatesTimeApi
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
-
+    config.i18n.default_locale = :'pt-BR'
     config.action_cable.mount_path = '/websocket'
     config.session_store :cookie_store, key: '_interslice_session'
     config.middleware.use ActionDispatch::Cookies

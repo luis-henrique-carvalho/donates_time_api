@@ -1,0 +1,20 @@
+# config/locales/pt-BR.yml
+pt-BR:
+  activerecord:
+    models:
+      ong: "ONG"
+    attributes:
+      ong:
+        category:
+          education: "Educação"
+          health: "Saúde"
+          environment: "Meio Ambiente"
+          animal_welfare: "Bem-estar Animal"
+          arts_and_culture: "Artes e Cultura"
+          human_rights: "Direitos Humanos"
+          community_development: "Desenvolvimento Comunitário"
+          science_and_technology: "Ciência e Tecnologia"
+          disaster_relief: "Ajuda a Desastres"
+          sports: "Esportes"
+          youth: "Juventude"
+          seniors: "Idosos"
