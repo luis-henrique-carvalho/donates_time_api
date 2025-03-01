@@ -47,17 +47,17 @@ class Ong < ApplicationRecord
   validates :user_id, uniqueness: true
 
   scope :with_stats, lambda {
-    includes(actions: :volunteers)
-      .left_joins(actions: :volunteers)
-      .select(
-        'ongs.*',
-        'COUNT(DISTINCT volunteers.id) AS volunteers_total',
-        'SUM(actions.max_volunteers) AS actions_slots_total',
-        'SUM(actions.max_volunteers) - COUNT(DISTINCT volunteers.id) AS actions_slots_available',
-        'COUNT(DISTINCT CASE WHEN volunteers.confirmed = TRUE THEN volunteers.id END) AS confirmed_volunteers'
-      )
-      .group('ongs.id')
-  }
+  includes(actions: :volunteers)
+    .left_joins(actions: :volunteers)
+    .select(
+      'ongs.*',
+      'COUNT(DISTINCT volunteers.id) AS volunteers_total',
+      'SUM(DISTINCT actions.max_volunteers) AS actions_slots_total', # Use DISTINCT to avoid duplication
+      'SUM(DISTINCT actions.max_volunteers) - COUNT(DISTINCT volunteers.id) AS actions_slots_available',
+      'COUNT(DISTINCT CASE WHEN volunteers.confirmed = TRUE THEN volunteers.id END) AS confirmed_volunteers'
+    )
+    .group('ongs.id')
+}
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[name category state category]
